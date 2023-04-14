@@ -8,7 +8,7 @@
     Modified by Alejandro Mujica (alejandro.j.mujic4@gmail.com) for teaching purpose.
 
     This file contains the definition for entities.
-]]
+]] 
 ENTITY_DEFS = {
     ['player'] = {
         walkSpeed = 60,
@@ -72,6 +72,30 @@ ENTITY_DEFS = {
                 interval = 0.05,
                 looping = false,
                 texture = 'character-swing-sword'
+            },
+            ['bow-up'] = {
+                frames =  {5, 6, 7, 8},
+                interval = 0.05,
+                looping = false,
+                texture = 'character-bow'
+            },
+            ['bow-down'] = {
+                frames = {13, 14, 15, 16},
+                interval = 0.05,
+                looping = false,
+                texture = 'character-bow'
+            },
+            ['bow-left'] = {
+                frames = {9, 10, 11, 12},
+                interval = 0.05,
+                looping = false,
+                texture = 'character-bow'
+            },
+            ['bow-right'] = {
+                frames = {1, 2, 3, 4},
+                interval = 0.05,
+                looping = false,
+                texture = 'character-bow'
             },
             ['pot-lift-down'] = {
                 frames = {1, 2, 3},
