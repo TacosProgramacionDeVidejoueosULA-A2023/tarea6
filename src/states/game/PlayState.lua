@@ -26,7 +26,10 @@ function PlayState:init()
         health = 6,
 
         -- rendering and collision offset for spaced sprites
-        offsetY = 5
+        offsetY = 5,
+
+        -- reference to this player's bow
+        hasBow = false
     }
 
     self.dungeon = Dungeon(self.player)
