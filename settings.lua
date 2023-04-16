@@ -20,6 +20,8 @@ require 'src/Hitbox'
 require 'src/Player'
 require 'src/Projectile'
 require 'src/StateMachine'
+require 'src/Arrow'
+require 'src/Bow'
 
 require 'src/definitions/entity'
 require 'src/definitions/game_objects'
@@ -31,6 +33,7 @@ require 'src/states/entity/EntityWalkState'
 
 require 'src/states/entity/player/PlayerIdleState'
 require 'src/states/entity/player/PlayerSwingSwordState'
+require 'src/states/entity/player/PlayerShotArrowState'
 require 'src/states/entity/player/PlayerWalkState'
 require 'src/states/entity/player/PlayerPotLiftState'
 require 'src/states/entity/player/PlayerPotIdleState'
@@ -92,6 +95,7 @@ TEXTURES = {
     ['character-walk'] = love.graphics.newImage('graphics/character_walk.png'),
     ['character-swing-sword'] = love.graphics.newImage('graphics/character_swing_sword.png'),
     ['character-bow'] = love.graphics.newImage('graphics/character_bow.png'),
+    ['arrow'] = love.graphics.newImage('graphics/arrow.png'),
     ['hearts'] = love.graphics.newImage('graphics/hearts.png'),
     ['chests'] = love.graphics.newImage('graphics/chests.png'),
     ['switches'] = love.graphics.newImage('graphics/switches.png'),
@@ -104,8 +108,9 @@ FRAMES = {
     ['tiles'] = generateQuads(TEXTURES['tiles'], 16, 16),
     ['character-walk'] = generateQuads(TEXTURES['character-walk'], 16, 32),
     ['character-swing-sword'] = generateQuads(TEXTURES['character-swing-sword'], 32, 32),
-    ['character-bow'] = generateQuads(TEXTURES['character-bow'], 80, 80),
+    ['character-bow'] = generateQuads(TEXTURES['character-bow'], 10, 10),
     ['hearts'] = generateQuads(TEXTURES['hearts'], 16, 16),
+    ['arrow'] = generateQuads(TEXTURES['arrow'], 16, 16),
     ['switches'] = generateQuads(TEXTURES['switches'], 16, 18),
     ['chests'] = generateQuads(TEXTURES['chests'], 16, 16),
     ['entities'] = generateQuads(TEXTURES['entities'], 16, 16),
@@ -123,6 +128,7 @@ SOUNDS = {
     ['dungeon-music'] = love.audio.newSource('sounds/dungeon_music.mp3', 'static'),
     ['game-over-music'] = love.audio.newSource('sounds/game_over_music.mp3', 'static'),
     ['sword'] = love.audio.newSource('sounds/sword.wav', 'static'),
+    ['bow'] = love.audio.newSource('sounds/sword.wav', 'static'),
     ['hit-enemy'] = love.audio.newSource('sounds/hit_enemy.wav', 'static'),
     ['hit-player'] = love.audio.newSource('sounds/hit_player.wav', 'static'),
     ['door'] = love.audio.newSource('sounds/door.wav', 'static'),

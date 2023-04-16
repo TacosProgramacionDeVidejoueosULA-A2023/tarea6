@@ -13,10 +13,15 @@ Player = Class{__includes = Entity}
 
 function Player:init(def)
     Entity.init(self, def)
+    self.bow = nil
 end
 
 function Player:update(dt)
     Entity.update(self, dt)
+end
+
+function Player:equipBow(dungeon)
+    self.bow = Bow(dungeon, self)
 end
 
 function Player:collides(target)

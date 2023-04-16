@@ -23,6 +23,7 @@ function Dungeon:init(player)
     self.cameraX = 0
     self.cameraY = 0
     self.shifting = false
+    self.generatedChest = false
 
     -- trigger camera translation and adjustment of rooms whenever the player triggers a shift
     -- via a doorway collision, triggered in PlayerWalkState
@@ -49,6 +50,10 @@ end
 function Dungeon:beginShifting(shiftX, shiftY)
     self.shifting = true
     self.nextRoom = Room(self.player)
+    if math.random(2) > 1 and not self.generatedChest then
+        self.generatedChest = true
+        self.nextRoom:generateChest(self)
+    end
 
     -- start all doors in next room as open until we get in
     for k, doorway in pairs(self.nextRoom.doorways) do
@@ -126,7 +131,7 @@ function Dungeon:finishShifting()
     self.currentRoom = self.nextRoom
     self.nextRoom = nil
     self.currentRoom.adjacentOffsetX = 0
-    self.currentRoom.adjacentOffsetY = 0 
+    self.currentRoom.adjacentOffsetY = 0     
 end
 
 function Dungeon:update(dt)

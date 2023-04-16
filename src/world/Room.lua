@@ -8,7 +8,7 @@
     Modified by Alejandro Mujica (alejandro.j.mujic4@gmail.com) for teaching purpose.
 
     This file contains the class Room.
-]] 
+]]
 Room = Class {}
 
 function Room:init(player)
@@ -188,7 +188,7 @@ end
     Randomly creates an assortment of enemies for the player to fight.
 ]]
 function Room:generateEntities()
-    local types = {'skeleton', 'slime', 'bat', 'ghost', 'spider'}
+    local types = { 'skeleton', 'slime', 'bat', 'ghost', 'spider' }
 
     for i = 1, 10 do
         local type = types[math.random(#types)]
@@ -230,20 +230,8 @@ function Room:generateObjects()
         (VIRTUAL_HEIGHT - MAP_HEIGHT * TILE_SIZE) + MAP_RENDER_OFFSET_Y - TILE_SIZE - 16)
     table.insert(self.objects, GameObject(GAME_OBJECT_DEFS['switch'], switch_x, switch_y))
 
-    local chest_x = math.random(MAP_RENDER_OFFSET_X + TILE_SIZE, VIRTUAL_WIDTH - TILE_SIZE * 2 - 16)
-    local chest_y = math.random(MAP_RENDER_OFFSET_Y + TILE_SIZE, VIRTUAL_HEIGHT -
-        (VIRTUAL_HEIGHT - MAP_HEIGHT * TILE_SIZE) + MAP_RENDER_OFFSET_Y - TILE_SIZE - 16)
-    while (chest_x ~= switch_x) and (chest_y ~= switch_y) do
-        chest_x = math.random(MAP_RENDER_OFFSET_X + TILE_SIZE, VIRTUAL_WIDTH - TILE_SIZE * 2 - 16)
-        chest_y = math.random(MAP_RENDER_OFFSET_Y + TILE_SIZE, VIRTUAL_HEIGHT -
-            (VIRTUAL_HEIGHT - MAP_HEIGHT * TILE_SIZE) + MAP_RENDER_OFFSET_Y - TILE_SIZE - 16)
-    end
-    table.insert(self.objects, GameObject(GAME_OBJECT_DEFS['chest'], chest_x, chest_y))
-
     -- get a reference to the switch
     local switch = self.objects[1]
-    -- -- get a reference to the chest
-    local chest = self.objects[2]
 
     -- define a function for the switch that will open all doors in the room
     switch.onCollide = function()
@@ -259,20 +247,31 @@ function Room:generateObjects()
         end
     end
 
-    -- define a function for the chest that will allow the player to use the bow
-    chest.onCollide = function()
-        if chest.state == 'closed' then
-            chest.state = 'open'
-            self.player.hasBow = true
-        end
-    end
-
     for y = 2, self.height - 1 do
         for x = 2, self.width - 1 do
             -- change to spawn a pot
             if math.random(20) == 1 then
                 table.insert(self.objects, GameObject(GAME_OBJECT_DEFS['pot'], x * 16, y * 16))
             end
+        end
+    end
+end
+
+function Room:generateChest(dungeon)
+    local chest_x = math.random(MAP_RENDER_OFFSET_X + TILE_SIZE, VIRTUAL_WIDTH - TILE_SIZE * 2 - 16)
+    local chest_y = math.random(MAP_RENDER_OFFSET_Y + TILE_SIZE, VIRTUAL_HEIGHT -
+        (VIRTUAL_HEIGHT - MAP_HEIGHT * TILE_SIZE) + MAP_RENDER_OFFSET_Y - TILE_SIZE - 16)
+    local chest = GameObject(GAME_OBJECT_DEFS['chest'], chest_x, chest_y)
+    
+
+    -- -- get a reference to the chest
+    table.insert(self.objects, chest)
+
+    -- define a function for the chest that will allow the player to use the bow
+    chest.onCollide = function()
+        if chest.state == 'closed' then
+            chest.state = 'open'
+            self.player:equipBow(dungeon, self.player)
         end
     end
 end
