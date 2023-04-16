@@ -73,27 +73,27 @@ ENTITY_DEFS = {
                 looping = false,
                 texture = 'character-swing-sword'
             },
-            ['shoot-bow-up'] = {
-                frames =  {7},
-                interval = 0.05,
+            ['bow-up'] = {
+                frames =  {5,6,7,8},
+                interval = 0.5,
                 looping = false,
                 texture = 'character-bow'
             },
-            ['shoot-bow-down'] = {
-                frames = {15},
-                interval = 0.05,
+            ['bow-down'] = {
+                frames = {13,14,15,16},
+                interval = 0.5,
                 looping = false,
                 texture = 'character-bow'
             },
-            ['shoot-bow-left'] = {
-                frames = {11},
-                interval = 0.05,
+            ['bow-left'] = {
+                frames = {9,10,11,12},
+                interval = 0.5,
                 looping = false,
                 texture = 'character-bow'
             },
-            ['shoot-bow-right'] = {
-                frames = {3},
-                interval = 0.05,
+            ['bow-right'] = {
+                frames = {1,2,3,4},
+                interval = 0.5,
                 looping = false,
                 texture = 'character-bow'
             },

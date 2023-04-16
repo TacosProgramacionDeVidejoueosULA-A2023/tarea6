@@ -26,7 +26,7 @@ function PlayerIdleState:update(dt)
 
     if love.keyboard.wasPressed('space') then
         if self.entity.bow ~= nil then
-            self.entity:changeState('shoot-bow')
+            self.entity:changeState('shoot-arrow')
         else
             self.entity:changeState('swing-sword')
         end
